@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровой Двойник — Полный Гайд | Ferixdi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .header .author {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--dark);
+            margin: 50px 0 25px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            color: var(--primary-dark);
+            margin: 35px 0 20px 0;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.3em;
+            color: var(--dark);
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 20px 0 20px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid var(--warning);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 5px solid var(--danger);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 5px solid var(--success);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 5px solid var(--primary);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            border: 2px solid #334155;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'PROMPT';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+
+        .toc {
+            background: #f1f5f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--dark);
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: '☑';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .crosslist li::before {
+            content: '☒';
+            color: var(--danger);
+        }
+
+        .btn-print {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 30px 0;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 50px 0;
+            border: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                padding: 0;
+            }
+            .header, .content {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .btn-print {
+                display: none;
+            }
+            .code-block {
+                break-inside: avoid;
+                font-size: 0.8em;
+            }
+            h2, h3, h4 {
+                break-after: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 30px 20px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            h3 {
+                font-size: 1.4em;
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: rgba(255,255,255,0.9);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 ЦИФРОВОЙ ДВОЙНИК</h1>
+            <p class="subtitle">Полный гайд по созданию реалистичного цифрового аватара<br>который заменит тебе съемки на камеру навсегда</p>
+            <span class="author">Ferixdi</span>
+            
+            <div style="margin-top: 40px;">
+                <button class="btn-print" onclick="window.print()">📥 Скачать как PDF</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="toc">
+                <h3>📋 Содержание</h3>
+                <ul>
+                    <li><a href="#intro">1. Введение: Почему ты читаешь этот гайд</a></li>
+                    <li><a href="#reality">2. Другая реальность: Цифровой двойник</a></li>
+                    <li><a href="#for-whom">3. Для кого это</a></li>
+                    <li><a href="#business">4. Как это помогает в бизнесе</a></li>
+                    <li><a href="#psychology">5. Почему это работает: Психология</a></li>
+                    <li><a href="#tools">6. Что нужно для создания</a></li>
+                    <li><a href="#text">7. Текст — это 80% успеха</a></li>
+                    <li><a href="#step1">8. Шаг 1: Фотка</a></li>
+                    <li><a href="#step2">9. Шаг 2: GPT Image 2</a></li>
+                    <li><a href="#step3">10. Шаг 3: Gemini Omni</a></li>
+                    <li><a href="#step4">11. Шаг 4: CapCut</a></li>
+                    <li><a href="#lifehacks">12. Лайфхаки</a></li>
+                    <li><a href="#photo-prompt">13. Фото-промпт</a></li>
+                    <li><a href="#video-prompt">14. Видео-промпт</a></li>
+                </ul>
+            </div>
+
+            <section id="intro">
+                <h2>📖 Введение: Почему ты читаешь этот гайд</h2>
+                <p>Давай честно.</p>
+                <p>Ты знаешь, что <strong>видео-контент — это основа всего</strong>. Если ты не снимаешь Reels, Shorts, TikTok — тебя просто не существует. Алгоритмы продвигают видео. Люди покупают у тех, кого видят каждый день. Эксперты, которые постят по 3-5 видео в день, забирают всю аудиторию.</p>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Но есть проблема. Огромная.</h4>
+                    <p>Снимать видео — это <strong>ад</strong>.</p>
+                </div>
+
+                <p>Вот что происходит, когда ты пытаешься снять нормальный ролик:</p>
+                <ol>
+                    <li><strong>Нужно выглядеть прилично.</strong> Найти рубашку, которая не выглядит как тряпка. Причесаться. Убедиться, что лицо не опухшее.</li>
+                    <li><strong>Нужен нормальный фон.</strong> Чтобы не было видно грязной одежды на стуле, кота, который лезет в кадр, или бардака в комнате.</li>
+                    <li><strong>Нужен свет.</strong> Иначе лицо серое, глаза тусклые, выглядит как съемка в подвале.</li>
+                    <li><strong>Нужно записать текст.</strong> А ты запинаешься. С первого раза не получается. Со второго тоже. На десятом дубле уже бесишься.</li>
+                    <li><strong>Нужно монтировать.</strong> Обрезать косяки, добавить субтитры, музыку, переходы.</li>
+                    <li><strong>Нужно делать это КАЖДЫЙ ДЕНЬ.</strong> Потому что одно видео — это ничего. Нужно 5-10 в день, чтобы алгоритм тебя заметил.</li>
+                </ol>
+
+                <div class="highlight-box">
+                    <p><strong>Итог:</strong> Ты тратишь 3-4 часа в день на съемку и монтаж. У тебя нет времени на бизнес, на клиентов, на жизнь. Ты выгораешь. Ты бросаешь. Ты смотришь, как конкуренты, которые постят по 10 видео в день, забирают твою аудиторию.</p>
+                </div>
+
+                <p><strong>Знакомо?</strong></p>
+            </section>
+
+            <section id="reality">
+                <h2>🚀 Другая реальность: Цифровой двойник</h2>
+                <p>Ты просыпаешься утром. Наливаешь кофе. Открываешь ноутбук.</p>
+                
+                <div class="success-box">
+                    <h4>✨ За 15 минут ты делаешь 5 видео.</h4>
+                </div>
+
+                <p>Не снимаешь. Не монтируешь. Не выставляешь свет. Не ищешь фон. Не записываешь 50 дублей.</p>
+
+                <p>Ты просто:</p>
+                <ol>
+                    <li>Пишешь текст (5 минут).</li>
+                    <li>Загружаешь свою фотку в нейросеть.</li>
+                    <li>Вставляешь текст.</li>
+                    <li>Нажимаешь "Сгенерировать".</li>
+                    <li>Через 3 минуты получаешь 5 видео, где ты сидишь в офисе, смотришь в камеру, естественно жестикулируешь, моргаешь, дышишь и говоришь свой текст.</li>
+                    <li>Склеиваешь в CapCut за 5 минут.</li>
+                    <li>Заливаешь в Reels, Shorts, TikTok.</li>
+                </ol>
+
+                <p><strong>Всё.</strong></p>
+
+                <p>И самое главное — <strong>это ты</strong>. Твоё лицо. Твой голос. Твоя мимика. Твои жесты. Никто не понимает, что это не настоящая съемка. Люди думают, что ты просто сел, взял телефон и записал видос.</p>
+
+                <div class="info-box">
+                    <h4>💡 Это и есть цифровой двойник.</h4>
+                </div>
+            </section>
+
+            <section id="for-whom">
+                <h2>🎯 Для кого это</h2>
+                
+                <h4>1. Для экспертов и коучей</h4>
+                <p>Ты продаешь консультации, курсы, наставничество. Тебе нужно каждый день показывать экспертность. Но ты устал сниматься. С двойником ты можешь постить по 10 видео в день, показывая разные аспекты своей экспертизы.</p>
+
+                <h4>2. Для маркетологов и SMM-щиков</h4>
+                <p>Ты ведешь блоги клиентов. Клиент не хочет сниматься — ок, делаем ему двойника. Клиент хочет постить чаще — ок, двойник генерит 20 видео в неделю. Ты масштабируешь любого клиента без его участия.</p>
+
+                <h4>3. Для предпринимателей</h4>
+                <p>У тебя бизнес. Нет времени на съемки. Но нужно продвигать личный бренд. Двойник решает проблему — ты присутствуешь в инфополе каждый день, хотя физически можешь быть на встрече, в самолете, на отдыхе.</p>
+
+                <h4>4. Для блогеров</h4>
+                <p>Ты выгорел от постоянных съемок. Хочешь постить чаще, но сил нет. Двойник позволяет поддерживать темп без выгорания.</p>
+
+                <h4>5. Для тех, кто стесняется камеры</h4>
+                <p>Ты знаешь, что нужно снимать, но камера тебя бесит. Ты выглядишь неестественно, запинаяешься, нервничаешь. С двойником ты говоришь текст дома, в пижаме, а на видео выглядишь уверенно и профессионально.</p>
+
+                <h4>6. Для тех, кто хочет масштабироваться на другие языки</h4>
+                <p>Хочешь выйти на западный рынок? Переводишь текст на английский, генерируешь видео с тем же двойником. Всё, ты международный эксперт.</p>
+            </section>
+
+            <section id="business">
+                <h2>💼 Как это помогает в бизнесе: Конкретные кейсы</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>5x</h4>
+                        <p>Рост охватов</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>10</h4>
+                        <p>Видео в день</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>15 мин</h4>
+                        <p>На одно видео</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>60ч</h4>
+                        <p>Экономии в месяц</p>
+                    </div>
+                </div>
+
+                <h4>Кейс 1: Эксперт по маркетингу</h4>
+                <p><strong>Было:</strong> Снимал 1 видео в день. Тратил 2 часа. Выгорал.<br>
+                <strong>Стало:</strong> Генерирует 10 видео в день. Тратит 30 минут. Охваты выросли в 5 раз. Подписчики идут каждый день. Консультации расписаны на месяц вперед.</p>
+
+                <h4>Кейс 2: Агентство SMM</h4>
+                <p><strong>Было:</strong> Вело 5 клиентов. Клиенты не хотели сниматься. Контент-план выполнялся на 50%.<br>
+                <strong>Стало:</strong> Сделали двойников всем клиентам. Генерируют по 20 видео в неделю на каждого. Клиенты довольны, охваты растут, агентство взяло еще 10 клиентов.</p>
+
+                <h4>Кейс 3: Предприниматель в нише недвижимости</h4>
+                <p><strong>Было:</strong> Снимал видео раз в неделю. Не успевал. Конкуренты постить каждый день.<br>
+                <strong>Стало:</strong> Генерирует 5 видео в день. Показывает объекты, делится экспертизой, рассказывает истории. Стал узнаваемым в городе. Заявок в 3 раза больше.</p>
+
+                <h4>Кейс 4: Психолог</h4>
+                <p><strong>Было:</strong> Стеснялась камеры. Снимала редко. Клиенты не знали её в лицо.<br>
+                <strong>Стало:</strong> Сделала двойника. Генерирует видео каждый день. Рассказывает про психологию, делится кейсами. Клиенты идут, потому что видят её каждый день и доверяют.</p>
+
+                <h4>Кейс 5: Онлайн-школа</h4>
+                <p><strong>Было:</strong> Преподаватели не хотели записывать видео-приветствия для каждого потока.<br>
+                <strong>Стало:</strong> Сделали двойников всем преподавателям. Каждый студент получает персональное видео-приветствие. Конверсия в оплату выросла на 30%.</p>
+            </section>
+
+            <section id="psychology">
+                <h2>🧠 Почему это работает: Психология</h2>
+                <p>Люди покупают у людей. Это аксиома.</p>
+                <p>Когда человек видит твоё лицо каждый день — он начинает тебе доверять. Это называется <strong>эффект простого воздействия</strong> (mere exposure effect). Чем чаще мы видим что-то, тем больше нам это нравится.</p>
+                
+                <div class="info-box">
+                    <p>Когда ты постишь 1 видео в неделю — тебя не замечают.<br>
+                    Когда ты постишь 5 видео в день — ты становишься <strong>знакомым</strong>. А знакомым доверяют.</p>
+                </div>
+
+                <p>Цифровой двойник позволяет тебе быть "знакомым" для тысяч людей, даже если ты физически не можешь снимать столько видео.</p>
+            </section>
+
+            <section id="tools">
+                <h2>🛠️ Что нужно для создания двойника</h2>
+                
+                <ol>
+                    <li><strong>Твоя фотка (любая)</strong><br>Главное — чтобы лицо было четко видно. Где ты сфоткан — не важно. ИИ перенесет тебя в офис.</li>
+                    
+                    <li><strong>ChatGPT с генерацией картинок (GPT Image 2)</strong><br>Делает из твоей фотки реалистичный офисный портрет. Сохраняет лицо 100%, меняет фон на офис, одежду на деловую.</li>
+                    
+                    <li><strong>Gemini Omni (оживление)</strong><br>Берет офисное фото и заставляет его говорить. Добавляет дыхание, моргание, микровыражения, жесты, камеру в руках оператора.</li>
+                    
+                    <li><strong>CapCut (монтаж)</strong><br>Склеивает 10-секундные куски в длинное видео. Добавляет переходы, музыку.</li>
+                    
+                    <li><strong>Твоя голова (текст)</strong><br>Пишешь живой текст, как войс другу. 10 секунд = 20-25 слов.</li>
+                </ol>
+            </section>
+
+            <section id="text">
+                <h2>🗣️ Шаг 0: Текст — это 80% успеха</h2>
+                <p>Можно сделать видео в 8К, но если ты говоришь как робот — всё, свайпнули.</p>
+
+                <div class="warning-box">
+                    <h4>❌ Как писать НЕ надо:</h4>
+                    <ul class="crosslist">
+                        <li><strong>Как в дипломе:</strong> "Осуществляем деятельность по внедрению инновационных методик..." — Скука. Свайп.</li>
+                        <li><strong>Как робот:</strong> "Здравствуйте, уважаемые зрители, сегодня я хотел бы поделиться..." — Так не говорят в жизни.</li>
+                        <li><strong>Лить воду:</strong> "В связи с вышеизложенным, хотелось бы отметить..." — Кто это читает?</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ Как писать НАДО:</h4>
+                    <p>Представь, что кидаешь другу войс в телегу. Вот так и пиши.</p>
+                    <ul class="checklist">
+                        <li><strong>Короткие фразы.</strong> Одна мысль = одно предложение.</li>
+                        <li><strong>Слова-крючки:</strong> "Слушай...", "Смотри...", "Короче...", "Честно?", "Знаешь..."</li>
+                        <li><strong>Многоточия для пауз.</strong> ИИ делает вздохи, моргает, задумывается. "Привет... Слушай, хочу показать тебе одну штуку... Она реально меняет всё..."</li>
+                        <li><strong>Эмоции.</strong> "Это просто огонь", "Я сам в шоке", "Реально работает"</li>
+                        <li><strong>Истории вместо цифр.</strong> Не "продуктивность выросла на 40%", а "вчера сделал за 15 минут то, на что раньше убивал два часа".</li>
+                    </ul>
+                </div>
+
+                <h4>Математика:</h4>
+                <p><strong>10 секунд видео = 20-25 слов.</strong> Включи секундомер, прочитай вслух. Не влезаешь — режь.</p>
+
+                <h4>Примеры скриптов:</h4>
+                
+                <div class="code-block" style="background: #f8fafc; color: #334155; border: 2px solid #e2e8f0;">
+<strong>Прогрев:</strong>
+"Привет... Меня зовут [Имя]... Слушай, хочу показать тебе проект... Мы его делали полгода... И он реально меняет правила игры... Смотри..."
+
+<strong>Экспертный:</strong>
+"Слушай, сейчас объясню одну важную вещь... Многие этого не понимают... Но на самом деле всё проще... Смотри, вот есть ситуация... И большинство делает вот так... А надо — вот так. Чувствуешь разницу?"
+
+<strong>Личная история:</strong>
+"Знаешь, хочу поделиться одной историей... Пару месяцев назад я был в полной жопе... Реально, было тяжело... Но потом случилось кое-что... И всё перевернулось... Сейчас расскажу что именно..."
+
+<strong>Продажа:</strong>
+"Слушай, если ты устал от [проблема]... То это для тебя... Я сам через это прошел... И нашел решение... Работает реально... Если интересно — пиши в директ..."
+                </div>
+            </section>
+
+            <section id="step1">
+                <h2>📸 Шаг 1: Фотка (любая)</h2>
+                <p>Берешь любую фотку, где:</p>
+                <ul class="checklist">
+                    <li>Лицо четко видно.</li>
+                    <li>Ты один в кадре.</li>
+                    <li>Более-менее смотришь в камеру (или хотя бы не в затылок).</li>
+                </ul>
+
+                <p><strong>НЕ важно:</strong></p>
+                <ul>
+                    <li>Где сфоткан (улица, дома, ванная — пофиг).</li>
+                    <li>Какая одежда (ИИ переоденет).</li>
+                    <li>Какой фон (ИИ заменит на офис).</li>
+                    <li>Какой свет (ИИ исправит).</li>
+                </ul>
+            </section>
+
+            <section id="step2">
+                <h2>🎨 Шаг 2: GPT Image 2 — Делаем офисный портрет</h2>
+                <p>Загружаешь фотку в ChatGPT, вставляешь <strong>фото-промпт</strong> (он ниже).</p>
+
+                <p>Что делает промпт:</p>
+                <ol>
+                    <li><strong>Берет ТОЛЬКО лицо из исходника.</strong> Черты, кожу, глаза, волосы — всё 100%.</li>
+                    <li><strong>Меняет сцену на офис.</strong> Ты сидишь в кресле, за столом, за спиной коллеги.</li>
+                    <li><strong>Делает харизматичное выражение.</strong> Уверенный взгляд, легкая улыбка, "я знаю что-то важное".</li>
+                    <li><strong>Одевает в деловой casual.</strong> Рубашка, поло, джемпер.</li>
+                    <li><strong>Ставит офисный свет.</strong> Мягкий, естественный.</li>
+                    <li><strong>Делает вертикальный формат 9:16.</strong> Под Reels/Shorts.</li>
+                    <li><strong>Добавляет реалистичную кожу.</strong> Поры, текстура, NO beauty filter.</li>
+                </ol>
+
+                <div class="success-box">
+                    <p>На выходе — фото, как будто ты реально сидишь в офисе и тебя сфоткали на iPhone 15 Pro.</p>
+                </div>
+            </section>
+
+            <section id="step3">
+                <h2>🎥 Шаг 3: Gemini Omni — Оживляем двойника</h2>
+                <p>Грузишь офисное фото в Gemini Omni, вставляешь <strong>видео-промпт</strong>, в конце — свой текст.</p>
+
+                <p>Что делает промпт:</p>
+                <ol>
+                    <li><strong>Жестко фиксирует текст.</strong> Ни одного слова не меняется.</li>
+                    <li><strong>Сохраняет идентичность 100%.</strong></li>
+                    <li><strong>Делает камеру в руках оператора.</strong> Дрожание, фокус, экспозиция — всё как в жизни.</li>
+                    <li><strong>Добавляет физиологию.</strong> Дыхание, пульс, моргание, глотание.</li>
+                    <li><strong>Прописывает микровыражения.</strong> Каждую секунду — новая эмоция. Уверенность, задумчивость, улыбка, интерес.</li>
+                    <li><strong>Делает идеальный липсинк под русский язык.</strong> Губы четко попадают в звуки.</li>
+                    <li><strong>Добавляет харизму.</strong> Уверенная интонация, естественные паузы, живая речь.</li>
+                </ol>
+
+                <div class="success-box">
+                    <p>На выходе — 10-секундное видео, где ты сидишь в офисе, смотришь в камеру, естественно жестикулируешь и говоришь свой текст.</p>
+                </div>
+            </section>
+
+            <section id="step4">
+                <h2>✂️ Шаг 4: CapCut — Сборка</h2>
+                <ol>
+                    <li>Закидываешь куски в CapCut по порядку.</li>
+                    <li>Ставишь переходы Cross-dissolve на 5-10 кадров.</li>
+                    <li>Добавляешь тихую музыку (10-15%).</li>
+                    <li>Экспортируешь в 1080p/4K, 60 fps.</li>
+                </ol>
+                <p>Всё, видос готов.</p>
+            </section>
+
+            <section id="lifehacks">
+                <h2>💡 Лайфхаки</h2>
+                
+                <div class="warning-box">
+                    <p><strong>🚨 Если ИИ не узнает тебя</strong> — возьми другое фото, где лицо четче.</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🚨 Если офис как stock-photo</strong> — перегенери, со 2-3 раза выходит нормально.</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🚨 Если одежда странная</strong> — в промпте можно указать: "Keep original clothing if appropriate, otherwise replace with business casual: dark shirt or polo".</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🚨 Если губы не попадают в текст</strong> — упрощай текст, добавляй многоточия.</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🚨 Если Omni тупит</strong> — перегенери, со 2-3 попытки выходит идеально.</p>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>🚨 Если первое видео кривое</strong> — это нормально. Второе лучше, пятое — топ.</p>
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <section id="photo-prompt">
+                <h2>📸 ФОТО-ПРОМПТ (Универсальный, офисная сцена, харизма)</h2>
+                <p>Скопируй этот промпт полностью и вставь в ChatGPT с GPT Image 2:</p>
+                
+                <div class="code-block">
+═══════════════════════════════════════════════════════════════════
+UNIVERSAL OFFICE SCENE — CHARISMATIC IDENTITY PRESERVATION
+═══════════════════════════════════════════════════════════════════
+
+TASK: Take ANY provided reference photo of a person. Extract ONLY the 
+person's facial identity and physical characteristics. Place this EXACT 
+person into a UNIVERSAL OFFICE SCENE: sitting in an office chair, facing 
+the camera directly with a CHARISMATIC, CONFIDENT expression, ready to 
+speak to the viewer. This is NOT a copy of the original photo. This is 
+a COMPLETE RECREATION of the person as a charismatic expert in a 
+professional office environment.
+
+═══════════════════════════════════════════════════════════════════
+RULE #1: IDENTITY PRESERVATION (FORENSIC ACCURACY)
+═══════════════════════════════════════════════════════════════════
+
+From the source photo, extract and preserve ONLY these elements with 
+100% forensic accuracy:
+
+MUST PRESERVE WITH ZERO DEVIATION:
+- Exact face shape and bone structure (jawline, cheekbones, forehead)
+- Exact eye characteristics: color, shape, spacing, eyelid structure
+- Exact nose: shape, size, width, bridge
+- Exact mouth: lip thickness, shape, natural curve
+- Exact skin tone and skin texture (pores, color variations, moles)
+- Exact facial hair: beard pattern, density, color
+- Exact hairstyle: hair color, texture, style, hairline
+- Exact age appearance (do NOT age or de-age)
+- Exact ethnic features
+- Exact natural facial asymmetry
+
+WHAT TO IGNORE FROM SOURCE:
+- Original background (REPLACE with office)
+- Original pose (REPLACE with sitting in office chair)
+- Original clothing (REPLACE with business casual if inappropriate)
+- Original lighting (REPLACE with office lighting)
+- Original framing (REPLACE with vertical 9:16 portrait)
+
+VERIFICATION:
+The person in the output MUST be recognizable as the SAME person from 
+the source photo. Show the image to 10 people who know the subject — 
+all 10 must immediately say "this is [name]" without hesitation.
+
+═══════════════════════════════════════════════════════════════════
+RULE #2: CHARISMATIC EXPRESSION (CRITICAL)
+═══════════════════════════════════════════════════════════════════
+
+The expression must convey CHARISMA, CONFIDENCE, and APPROACHABILITY:
+
+EYES:
+- Direct eye contact with camera (viewer)
+- Slight intensity in gaze (not blank, not aggressive)
+- Eyes slightly narrowed (10-15%) — conveys confidence and focus
+- Natural catchlights in eyes (window reflection)
+- Eyebrows: slightly raised (2-3mm) — conveys interest
+
+MOUTH:
+- Slight natural smile (NOT a big grin, NOT stock photo smile)
+- Lips: relaxed but engaged
+- Mouth corners: raised 2-3mm (subtle smile)
+- Conveys: "I know something valuable and I'm about to share it"
+
+EXPRESSION VIBE:
+- "I'm an expert and I'm happy to share my knowledge"
+- "I'm confident but not arrogant"
+- "I'm approachable and you can trust me"
+- NOT: "I'm selling you something"
+- NOT: "I'm a model doing a photoshoot"
+
+═══════════════════════════════════════════════════════════════════
+RULE #3: UNIVERSAL OFFICE SCENE
+═══════════════════════════════════════════════════════════════════
+
+SUBJECT POSITION:
+- Person sitting in modern ergonomic office chair
+- At a clean, modern desk
+- Body facing camera directly (eye contact)
+- Torso upright, confident posture
+- Slight natural lean forward (5-10°) — engagement
+- Hands: resting on desk OR gesturing naturally
+- NO phone in hands
+- NO crossed arms
+
+FRAMING:
+- Medium shot: from waist to top of head
+- Subject centered or slightly off-center
+- Head room: 10-15% above head
+- Vertical format 9:16
+
+═══════════════════════════════════════════════════════════════════
+RULE #4: OFFICE ENVIRONMENT (BACKGROUND)
+═══════════════════════════════════════════════════════════════════
+
+BACKGROUND MUST BE A REALISTIC MODERN OFFICE:
+
+DESK AREA:
+- Modern desk partially visible
+- Laptop edge, notebook, coffee cup (subtle)
+- Small plant
+
+BEHIND SUBJECT (blurred):
+- Other desks/workstations (blurred)
+- Colleagues working (blurred, natural poses)
+- Monitors with screens (blurred)
+- Plants (blurred)
+- Windows with natural light (blurred)
+
+DEPTH OF FIELD:
+- Subject: SHARP (face, shoulders)
+- Background: NATURALLY BLURRED (f/1.8 bokeh)
+- Bokeh: realistic, not perfect circles
+
+ATMOSPHERE:
+- Professional but not sterile
+- Lived-in office (not empty showroom)
+- Natural activity in background
+- Warm, inviting atmosphere
+
+═══════════════════════════════════════════════════════════════════
+RULE #5: CLOTHING (BUSINESS CASUAL)
+═══════════════════════════════════════════════════════════════════
+
+IF SOURCE CLOTHING IS APPROPRIATE:
+- Keep original clothing
+
+IF SOURCE CLOTHING IS INAPPROPRIATE:
+- Replace with BUSINESS CASUAL:
+  - Dark button-down shirt (navy, black, grey)
+  - Polo shirt (solid color)
+  - Casual blazer over t-shirt
+  - Smart sweater
+- Clothing must be clean, well-fitted, professional
+
+═══════════════════════════════════════════════════════════════════
+RULE #6: VERTICAL FORMAT 9:16
+═══════════════════════════════════════════════════════════════════
+
+ASPECT RATIO: 9:16 (vertical, portrait)
+RESOLUTION: 1080x1920 or 2160x3840
+
+Optimized for mobile viewing (Reels, Shorts, TikTok)
+
+═══════════════════════════════════════════════════════════════════
+RULE #7: SMARTPHONE CAMERA REALISM
+═══════════════════════════════════════════════════════════════════
+
+The result must look like shot on iPhone 15 Pro:
+
+CAMERA CHARACTERISTICS:
+- Sensor: Modern smartphone sensor (slight noise)
+- Lens: 24-28mm equivalent
+- Aperture: f/1.7-1.8 (natural depth of field)
+- Processing: Computational photography
+- Color science: Natural, slightly warm
+
+PHONE PHOTO INDICATORS:
+- Slight digital noise in shadows
+- Natural bokeh (imperfect circles)
+- Slight vignetting in corners
+- Realistic skin texture (pores visible)
+- Natural color rendering
+
+═══════════════════════════════════════════════════════════════════
+RULE #8: SKIN & FACE REALISM (HYPER-REALISTIC)
+═══════════════════════════════════════════════════════════════════
+
+SKIN MUST LOOK REAL — NOT AI-GENERATED PLASTIC:
+
+VISIBLE TEXTURE:
+- Visible pores (especially nose, cheeks, forehead)
+- Natural skin texture (not smooth, not plastic)
+- Slight color variations across face
+- Natural shine on forehead, nose, cheeks
+- Visible fine lines and wrinkles (age-appropriate)
+
+EYES:
+- Realistic moisture (tear film visible)
+- Visible iris detail
+- Natural catchlights
+- Sclera: slight redness (not pure white)
+
+NO BEAUTY FILTER:
+- No skin smoothing
+- No blemish removal
+- No eye brightening
+- No teeth whitening
+- No face slimming
+
+The skin must look like REAL HUMAN SKIN, not AI plastic.
+
+═══════════════════════════════════════════════════════════════════
+RULE #9: OFFICE LIGHTING (NATURAL)
+═══════════════════════════════════════════════════════════════════
+
+LIGHTING MUST BE NATURAL OFFICE LIGHTING:
+
+PRIMARY LIGHT SOURCES:
+1. Window light (key): soft, natural, from one side (45°)
+2. Office ceiling lights (fill): soft overhead
+3. Monitor glow (subtle rim): cool light
+4. Ambient bounce: soft fill
+
+SHADOWS:
+- Soft, natural shadows (not harsh)
+- Under chin: soft, 30% darker
+- Under nose: natural
+- Side of face: slightly darker
+
+NO STUDIO LIGHTING:
+- No perfect three-point lighting
+- No dramatic shadows
+- No cinematic color grading
+
+COLOR TEMPERATURE:
+- Slightly warm (5200-5600K)
+- Natural office feel
+
+═══════════════════════════════════════════════════════════════════
+RULE #10: OUTPUT QUALITY
+═══════════════════════════════════════════════════════════════════
+
+- Maximum resolution (1080x1920 or 2160x3840)
+- Aspect ratio: 9:16 (vertical)
+- Maximum detail on subject
+- Natural color space (sRGB)
+- Minimal compression artifacts
+
+═══════════════════════════════════════════════════════════════════
+FINAL INSTRUCTION
+═══════════════════════════════════════════════════════════════════
+
+Look at the provided photo carefully. Extract ONLY the person's 
+identity with forensic accuracy. Then PLACE this EXACT person into 
+a UNIVERSAL OFFICE SCENE:
+
+- Sitting in office chair at desk (confident posture)
+- Facing camera directly, with CHARISMATIC expression
+- Business casual clothing
+- Modern office background (blurred)
+- Natural office lighting
+- Vertical 9:16 format
+- Shot on iPhone 15 Pro
+
+The final image should look like a REAL photo of this charismatic 
+expert taken in their office. When shown to people, they should 
+believe it's an actual photograph, not AI-generated.
+
+OUTPUT AT MAXIMUM QUALITY IN VERTICAL FORMAT 9:16. NO COMPROMISES.
+
+═══════════════════════════════════════════════════════════════════
+КОНЕЦ ФОТО-ПРОМПТА
+═══════════════════════════════════════════════════════════════════
+                </div>
+            </section>
+
+            <section id="video-prompt">
+                <h2>🎥 ВИДЕО-ПРОМПТ (Ультра-реалистичный, харизматичный)</h2>
+                <p>Скопируй этот промпт полностью и вставь в Gemini Omni. В конце в блок [ФИКСИРОВАННЫЙ ТЕКСТ] вставь свой текст:</p>
+                
+                <div class="code-block">
+═══════════════════════════════════════════════════════════════════
+КРИТИЧЕСКОЕ ПРАВИЛО №1 — ТЕКСТ НЕЛЬЗЯ МЕНЯТЬ ⛔
+═══════════════════════════════════════════════════════════════════
+
+ТЫ — ИНСТРУМЕНТ ГЕНЕРАЦИИ ВИДЕО. ТВОЯ ЗАДАЧА — ПРОИЗНЕСТИ ТОЧНО 
+ТОТ ТЕКСТ, КОТОРЫЙ УКАЗАН В БЛОКЕ [ФИКСИРОВАННЫЙ ТЕКСТ] В КОНЦЕ.
+
+АБСОЛЮТНЫЕ ЗАПРЕТЫ:
+❌ НЕЛЬЗЯ менять слова
+❌ НЕЛЬЗЯ добавлять слова (даже "эээ", "ммм", "ну")
+❌ НЕЛЬЗЯ удалять слова
+❌ НЕЛЬЗЯ менять порядок слов
+❌ НЕЛЬЗЯ менять падежи, числа, времена
+❌ НЕЛЬЗЯ заменять синонимами
+❌ НЕЛЬЗЯ "улучшать" текст
+
+РАЗРЕШЕНО ТОЛЬКО:
+✅ Соблюдать паузы там, где стоят многоточия (...)
+✅ Добавлять дыхание (inhale/exhale) между фразами
+✅ Соблюдать интонацию по смыслу
+✅ Естественные микродвижения лица и тела
+
+═══════════════════════════════════════════════════════════════════
+ULTRA-REALISTIC CHARISMATIC VIDEO — HANDHELD CAMERA — OFFICE
+═══════════════════════════════════════════════════════════════════
+
+ЧАСТЬ 1: ИДЕНТИЧНОСТЬ (100% СОХРАНЕНИЕ)
+═══════════════════════════════════════════════════════════════════
+
+SOURCE PHOTO LOCK:
+- Exact facial structure: bone, muscle, fat distribution
+- Exact skin texture: pores, scars, capillaries, oil pattern
+- Exact eye characteristics: iris pattern, sclera vessels
+- Exact facial hair: beard density, growth pattern, color
+- Exact age appearance: no aging, no de-aging
+- Exact ethnic features: preserve completely
+
+ZERO CHANGES:
+- No face swapping
+- No beautification
+- No skin smoothing
+- No eye brightening
+- No teeth whitening
+
+VERIFICATION:
+Person must be identifiable as EXACT SAME PERSON from source photo.
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 2: СЦЕНА — ОФИС, БЕЗ ТЕЛЕФОНА
+═══════════════════════════════════════════════════════════════════
+
+SUBJECT POSITION:
+- Person sitting in office chair at desk
+- NO PHONE IN HANDS — hands free, natural position
+- Hands resting on desk OR gesturing naturally
+- Body facing camera directly
+- Distance: 1.5-2 meters (medium shot)
+- Camera held by ANOTHER PERSON (operator)
+
+FRAMING:
+- Medium shot: waist to top of head
+- Subject occupies 40-50% of frame height
+- Head room: 10-15%
+- Background: office environment (blurred)
+
+HANDS — NATURAL POSITION:
+- Both hands on desk, fingers slightly spread
+- OR one hand gesturing naturally
+- OR hands clasped on lap
+- Natural gesticulation while speaking
+- Fingers: slight tremor (0.3mm, 8Hz)
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 3: КАМЕРА — В РУКАХ ОПЕРАТОРА (HANDHELD)
+═══════════════════════════════════════════════════════════════════
+
+OPERATOR: Real human holding camera at arm's length. 
+NOT on tripod, NOT on gimbal, NOT stabilized.
+
+CAMERA MOVEMENT — ORGANIC HANDHELD:
+
+PRIMARY MOVEMENTS:
+- Vertical sway: 3-5mm, 0.4-0.6Hz (operator breathing)
+- Horizontal sway: 2-4mm, 0.3-0.5Hz (body sway)
+- Rotation: 0.5-1.5°, 0.2-0.4Hz (wrist movement)
+- Micro-jitter: 0.5-1mm, 8-12Hz (hand tremor)
+
+SECONDARY MOVEMENTS:
+- Re-grip at 6s (slight jerk, 0.3s)
+- Operator blinks at 8s (subtle camera dip)
+- Footstep at 3s (vertical bump)
+
+OVERALL CHARACTER:
+- Movement is organic, human, imperfect
+- NOT smooth, NOT mechanical, NOT gimbal-like
+- Looks like real person holding camera
+
+FOCUS BEHAVIOR:
+- Initial focus: sharp on face (0-2s)
+- Focus hunt: slight blur at 3s (0.4s)
+- Focus drift: softness at 7s (0.3s)
+- Recovery: sharp at 8-10s
+
+EXPOSURE BEHAVIOR:
+- Auto-exposure adjusts at 4s
+- Brightness fluctuation (±5%)
+- Highlight clipping on bright areas
+
+DEPTH OF FIELD:
+- Subject face: sharp
+- Background: naturally blurred
+- Bokeh: realistic, not perfect circles
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 4: ФИЗИОЛОГИЯ СУБЪЕКТА
+═══════════════════════════════════════════════════════════════════
+
+1. ДЫХАНИЕ:
+   - Cycle: inhale 2.5s, exhale 3.5s, pause 1s
+   - Chest expansion: 3cm vertical, 2cm horizontal
+   - Shoulder movement: follows chest, 0.2s delay
+   - Visible through shirt fabric
+
+2. СЕРДЦЕБИЕНИЕ:
+   - Pulse: 72 BPM, visible at carotid (1mm)
+   - Facial flushing: slight color variation
+   - Temple veins: slight pulsing (0.5mm)
+
+3. ГЛАЗА:
+   - Saccades: 3-4 per second (1-2°, random)
+   - Fixation: camera (0.5s) → look away (0.3s) → camera
+   - Blinking: irregular (0.8s, 3.2s, 6.7s, 9.1s)
+   - Blink duration: 120ms average
+   - Eye moisture: tear film redistributes every 3-4s
+   - Catchlights: move with head (1-2mm)
+
+4. ЛИЦЕВЫЕ МЫШЦЫ:
+   - All 43 muscles with continuous activity
+   - Micro-expressions throughout
+   - Jaw: slight tension when speaking
+   - Forehead: frontalis activates with eyebrow raises
+   - Cheeks: zygomaticus with smile
+
+5. НЕПРОИЗВОЛЬНЫЕ ДВИЖЕНИЯ:
+   - Head tremor: 0.5mm, 8-12Hz
+   - Swallowing: at 4.5s (Adam's apple, 0.6s)
+   - Lip licking: at 7.8s (0.3s)
+   - Nose twitch: with breathing (1mm)
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 5: ОДЕЖДА И ФИЗИКА ТКАНИ
+═══════════════════════════════════════════════════════════════════
+
+SHIRT:
+- Collar: moves with breathing (2mm)
+- Chest: wrinkles form/relax with breathing
+- Sleeves: wrinkle pattern changes with arm movement
+- Fabric: visible weave, slight transparency
+
+MOVEMENT:
+- All clothing moves naturally with body
+- Wrinkles update with posture changes
+- No stiff or frozen fabric
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 6: ОСВЕЩЕНИЕ (ДИНАМИКА)
+═══════════════════════════════════════════════════════════════════
+
+PRIMARY LIGHTS:
+1. Window (key): 800 lux, 5600K, 45° left
+   - Cloud at 3s (20% dimming, 1s)
+2. Ceiling LED (fill): 400 lux, 4000K, 90° above
+   - Flicker: 100Hz (2% pulse)
+3. Monitor glow (rim): 100 lux, 6500K, 180° behind
+   - Screen change at 7s (30% increase)
+4. Ambient bounce: 200 lux, mixed 4500K
+
+SHADOWS:
+- Under chin: soft, 30% darker
+- Under nose: harder, 50% darker
+- Under eyes: soft, 20% darker
+- Move with subject naturally
+
+REFLECTIONS:
+- Eye catchlights: move with head (1-2mm)
+- Nose/forehead shine: slides with movement
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 7: АРТИКУЛЯЦИЯ (ЛИПСИНК) — КРИТИЧНО
+═══════════════════════════════════════════════════════════════════
+
+⚠️ АРТИКУЛЯЦИЯ ДОЛЖНА СООТВЕТСТВОВАТЬ ТОЧНОМУ ТЕКСТУ ⚠️
+
+RUSSIAN PHONEMES:
+- "А": jaw drops 1cm, lips spread, tongue low
+- "О": lips round (1cm), jaw drops 0.5cm
+- "У": lips protrude 1cm, jaw drops 0.3cm
+- "И": lips spread (teeth visible), jaw drops 0.2cm
+- "Б/П/М": lips close completely (pressure visible)
+- "В/Ф": upper teeth on lower lip (1mm)
+- "Д/Т/Н/Л": tongue tip on alveolar ridge
+- "С/З/Ц": tongue tip near teeth (hissing)
+- "Р": tongue tip trills (0.5mm, 20Hz)
+
+COARTICULATION:
+- Sounds blend naturally
+- Transition: 50-100ms between phonemes
+- Anticipatory movement: mouth prepares 100ms early
+
+JAW: 1-2cm vertical travel, 2-3mm lateral
+TONGUE: visible for alveolar sounds, 1-2cm movement
+LIPS: upper 2-3mm, lower 3-4mm movement
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 8: ПРОСОДИЯ РЕЧИ
+═══════════════════════════════════════════════════════════════════
+
+TEMPO: 150 words/min average (130-170 range)
+PITCH: 120 Hz average (80-180 Hz range)
+VOLUME: 60 dB average (50-70 dB range)
+TIMBRE: Natural Russian, slight vocal fry (10%), breathiness (20%)
+EMOTION: Matches content — calm, engaged, thoughtful, relaxed
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 9: МИКРОВЫРАЖЕНИЯ (10 СЕКУНД)
+═══════════════════════════════════════════════════════════════════
+
+0.0-0.5s: neutral-confident (resting face)
+0.5-1.0s: slight eyebrow raise (interest)
+1.0-1.5s: slight smile formation
+1.5-2.0s: brief concern (0.3s)
+2.0-2.5s: curiosity (brow raise + furrow)
+2.5-3.0s: genuine smile (cheek raise)
+3.0-3.5s: slight surprise (upper lid raise)
+3.5-4.0s: slight nod (chin raise)
+4.0-4.5s: concentration (lip tighten)
+4.5-5.0s: breathing (lips part)
+5.0-5.5s: engagement (brow raise + smile)
+5.5-6.0s: concern (brow furrow)
+6.0-6.5s: reassurance (brow raise + smile)
+6.5-7.0s: question (outer brow raise)
+7.0-7.5s: amusement (smile + lips part)
+7.5-8.0s: interest (brow raise)
+8.0-8.5s: thought (brow furrow + lip tighten)
+8.5-9.0s: agreement (smile + chin raise)
+9.0-9.5s: final engagement (brow raise + smile)
+9.5-10.0s: relaxation (return to neutral)
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 10: ОКРУЖЕНИЕ
+═══════════════════════════════════════════════════════════════════
+
+BACKGROUND PEOPLE (blurred but alive):
+- Person 1 (left): on phone, gestures at 3s
+- Person 2 (right): typing, head bobs at 6s
+- Person 3 (far): walks past at 8s
+
+OFFICE ELEMENTS:
+- Monitor: screen changes at 5s
+- Coffee cup: slight steam at 2s
+- Plant: leaf moves at 4s (AC)
+- Window: cloud passes at 3s (light change)
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 11: СИНХРОНИЗАЦИЯ
+═══════════════════════════════════════════════════════════════════
+
+LIP-SYNC: within 1 frame (40ms at 24fps, 16ms at 60fps)
+BREATHING: visible 0.3s before sound
+SWALLOWING: visible 0.2s before audible
+CLOTHING: movement matches implied sound
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 12: ПРОВЕРКА РЕАЛИЗМА
+═══════════════════════════════════════════════════════════════════
+
+BIOLOGICAL:
+☑️ Breathing cycle visible (4-5s)
+☑️ Eye saccades (3-4 per second)
+☑️ Blinking irregular (0.8s, 3.2s, 6.7s, 9.1s)
+☑️ Pulse visible at neck (72 BPM)
+☑️ Micro-expressions (10+ over 10s)
+☑️ Involuntary movements (tremor, swallowing)
+☑️ Facial asymmetry maintained
+☑️ Skin texture preserved
+
+PHYSICAL:
+☑️ Clothing physics realistic
+☑️ Hand biomechanics correct (no phone)
+☑️ Lighting dynamics present
+☑️ Shadows move correctly
+☑️ Reflections update properly
+
+CAMERA:
+☑️ Handheld movement organic
+☑️ Focus behavior realistic
+☑️ Exposure behavior natural
+☑️ White balance shifts subtle
+☑️ NO phone in subject's hands
+
+SPEECH:
+☑️ Lip sync physically accurate (Russian phonemes)
+☑️ Coarticulation present
+☑️ Jaw/tongue/cheek movement visible
+☑️ Prosody natural
+☑️ Emotional variation matches content
+
+⚠️ TEXT VERIFICATION (CRITICAL):
+☑️ Text spoken EXACTLY as in [ФИКСИРОВАННЫЙ ТЕКСТ]
+☑️ ZERO words changed
+☑️ ZERO words added
+☑️ ZERO words removed
+☑️ If text doesn't match — REGENERATE
+
+TECHNICAL:
+☑️ No AI artifacts
+☑️ No uncanny valley
+☑️ No morphing/warping
+☑️ No smoothing
+☑️ No CGI look
+☑️ Maximum quality (4K/8K, 60fps)
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 13: СПЕЦИФИКАЦИИ ВЫВОДА
+═══════════════════════════════════════════════════════════════════
+
+VIDEO:
+- Duration: exactly 10.0 seconds
+- Format: Vertical 9:16 (1080x1920 or 2160x3840)
+- Frame rate: 60 fps
+- Bitrate: maximum (50-100 Mbps)
+- Color space: Rec. 709
+- Codec: H.264/H.265
+
+QUALITY:
+- Resolution: 4K minimum
+- Dynamic range: standard
+- Noise: minimal (natural sensor noise)
+- Sharpness: natural
+- Color: accurate
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 14: ФИНАЛЬНЫЙ ТЕСТ
+═══════════════════════════════════════════════════════════════════
+
+When shown to 1000 people, 999 must believe this is a real person 
+recorded by another person holding a camera in an office.
+
+This is not animation. This is a 10-second window into real life.
+
+═══════════════════════════════════════════════════════════════════
+ЧАСТЬ 15: ФИКСИРОВАННЫЙ ТЕКСТ ДЛЯ ОЗВУЧКИ
+═══════════════════════════════════════════════════════════════════
+
+⛔ ВНИМАНИЕ: ЭТОТ ТЕКСТ ДОЛЖЕН БЫТЬ ПРОИЗНЕСЁН ТОЧНО ⛔
+⛔ НИКАКИХ ИЗМЕНЕНИЙ, ДОБАВЛЕНИЙ, УДАЛЕНИЙ ⛔
+
+НАЧАЛО ФИКСИРОВАННОГО ТЕКСТА:
+═══════════════════════════════════════════════════════════════════
+
+[ВСТАВЬ СЮДА СВОЙ ТЕКСТ. СЛОВО В СЛОВО. БЕЗ ИЗМЕНЕНИЙ.]
+
+═══════════════════════════════════════════════════════════════════
+КОНЕЦ ФИКСИРОВАННОГО ТЕКСТА
+═══════════════════════════════════════════════════════════════════
+
+⛔ КРИТИЧЕСКАЯ ИНСТРУКЦИЯ: ⛔
+
+1. Прочитай текст из блока выше ВНИМАТЕЛЬНО
+2. Запомни каждое слово
+3. Произнеси ТОЧНО этот текст
+4. НЕ добавляй "эээ", "ммм", "ну" (если их нет в тексте)
+5. НЕ меняй порядок слов
+6. НЕ заменяй слова синонимами
+7. НЕ сокращай текст
+8. НЕ расширяй текст
+
+ПРОВЕРКА ПОСЛЕ ГЕНЕРАЦИИ:
+Сравни произнесённый текст с текстом из блока выше. 
+Если есть хоть одно отличие — СТОП. Перегенерируй.
+
+═══════════════════════════════════════════════════════════════════
+
+Generate speech with COMPLETE biological accuracy. Every phoneme, 
+every breath, every pause must have corresponding visible movement. 
+The person must appear to be genuinely speaking, thinking, and 
+existing in real time.
+
+Voice: Natural Russian accent, conversational tone, charismatic, 
+confident, warm, engaging. Slight vocal fry (10%), breathiness (20%), 
+natural pitch variation (80-180 Hz), tempo variation (130-170 wpm).
+
+Preserve identity perfectly. This is the same biological entity 
+as in the source photo. Maintain charismatic expression throughout.
+
+OUTPUT AT MAXIMUM QUALITY. NO COMPROMISES. THIS IS REALITY.
+
+═══════════════════════════════════════════════════════════════════
+КОНЕЦ ВИДЕО-ПРОМПТА
+═══════════════════════════════════════════════════════════════════
+                </div>
+            </section>
+
+            <hr class="section-divider">
+
+            <div class="success-box" style="text-align: center; padding: 40px;">
+                <h2 style="margin-top: 0; border: none;">🎯 ФИНАЛЬНЫЕ СЛОВА</h2>
+                <p style="font-size: 1.2em;">Вот и всё. У тебя на руках:</p>
+                <ul style="text-align: left; display: inline-block; font-size: 1.1em;">
+                    <li><strong>Полный гайд</strong> с разбором технологии, бизнес-кейсов, пошаговой инструкцией.</li>
+                    <li><strong>Фото-промпт</strong> для создания харизматичного офисного портрета из ЛЮБОЙ фотки.</li>
+                    <li><strong>Видео-промпт</strong> для оживления с идеальным липсинком, живой мимикой, харизмой.</li>
+                </ul>
+
+                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                    <h3 style="margin-top: 0; color: #92400e;">Помни:</h3>
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li>Ты больше не обязан сниматься на камеру.</li>
+                        <li>Ты больше не обязан выставлять свет, искать фон, записывать 50 дублей.</li>
+                        <li>Ты просто пишешь текст, загружаешь фотку, получаешь видео.</li>
+                        <li>Ты можешь постить 10 видео в день, не выгорая.</li>
+                        <li>Ты можешь масштабировать бизнес, не тратя часы на съемки.</li>
+                    </ul>
+                </div>
+
+                <p style="font-size: 1.3em; font-weight: 600; color: #1e293b;">
+                    Первое видео будет кривым. Второе — лучше. Пятое — топ.<br>
+                    Через месяц будешь щелкать такие видосы как орешки.
+                </p>
+
+                <p style="font-size: 1.2em; margin-top: 30px;">
+                    Забирай промпты, тестируй, действуй.<br>
+                    Если что — пиши, разберемся. 💪
+                </p>
+
+                <p style="font-size: 1.4em; font-weight: 700; color: #6366f1; margin-top: 40px;">
+                    ДЕЙСТВУЙ. СЕЙЧАС. НЕ ОТКЛАДЫВАЙ.<br><br>
+                    Твой цифровой двойник ждет. 🚀
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-print" onclick="window.print()">📥 Скачать как PDF</button>
+            </div>
+        </div>
+
+        <footer style="text-align: center; color: white; margin-top: 40px; padding: 20px; font-size: 0.9em;">
+            <p>© 2024 Ferixdi | Цифровой Двойник — Полный Гайд</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add print notification
+        function showPrintNotification() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 20px 30px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = '🖨️ Открывается окно печати. Выберите "Сохранить как PDF"';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Override print button
+        const originalPrint = window.print;
+        window.print = function() {
+            showPrintNotification();
+            setTimeout(() => originalPrint(), 100);
+        };
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
